@@ -59,21 +59,21 @@ This is a backend project developed with FastAPI that provides an API to support
 
 backend-ml/
 ├── app/
-│   ├── api/
-│   │   └── routes.py           # Rutas de la API
-│   ├── ml_models/
-│   │   ├── modelo_hipertension.pkl  # Modelo entrenado
-│   │   ├── __init__.py
-│   │   ├── main.py             # Lógica principal del modelo
-│   │   ├── models.py           # Definición de clases o estructuras
-│   │   ├── routes.py           # Endpoints relacionados al modelo
-│   │   └── services.py         # Funciones de servicio o utilitarias
-│   └── __pycache__/            # Archivos compilados automáticamente
+│ ├── api/
+│ │ └── routes.py # Rutas de la API
+│ ├── ml_models/
+│ │ ├── modelo_hipertension.pkl # Modelo entrenado
+│ │ ├── init.py
+│ │ ├── main.py # Lógica principal del modelo
+│ │ ├── models.py # Definición de clases o estructuras
+│ │ ├── routes.py # Endpoints relacionados al modelo
+│ │ └── services.py # Funciones de servicio o utilitarias
+│ └── pycache/ # Archivos compilados automáticamente
 ├── test/
-│   └── test_main.http          # Pruebas de endpoints HTTP
-├── LICENSE                     # Licencia del proyecto
-├── README.md                   # Documentación del proyecto
-└── requirements.txt            # Dependencias del proyecto
+│ └── test_main.http # Pruebas de endpoints HTTP
+├── LICENSE # Licencia del proyecto
+├── README.md # Documentación del proyecto
+└── requirements.txt # Dependencias del proyecto
 
 ## Contribution
 
