@@ -29,24 +29,24 @@ This is a backend project developed with FastAPI that provides an API to support
 ## Installation
 
 1. Clone the repository:
-
+   ```bash
    git clone https://github.com/FiveGroupLab/backend-ml.git
    cd backend-ml
-
+   ```
 2. Create and activate a virtual environment:
-
+   ```bash
    python -m venv venv
    source venv/bin/activate     # Linux/macOS
    venv\Scripts\activate        # Windows
-
+   ```
 3. Install dependencies:
-
+   ```bash
    pip install -r requirements.txt
-
+   ```
 4. Run the development server:
-
+   ```bash
    uvicorn app.main:app --reload
-
+   ```
 5. Open your browser and go to http://127.0.0.1:8000/docs
 
 ## Usage
@@ -83,7 +83,7 @@ Contributions are welcome! Please fork the repository and submit a pull request.
 
 ## License
 
-MIT
+[MIT](./LICENSE)
 
 ## Team Members
 
