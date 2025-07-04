@@ -2,6 +2,8 @@ from pathlib import Path
 
 import joblib
 import pandas as pd
+from openai import OpenAI
+from pydantic import BaseModel
 
 ruta_modelo_1 = Path(__file__).parent / 'ml_models' / 'modelo_hipertension.pkl'
 modelo_1 = joblib.load(ruta_modelo_1)
@@ -11,7 +13,17 @@ ruta_modelo_3 = Path(__file__).parent / 'ml_models' / 'modelo_hipertension.pkl'
 modelo_3 = joblib.load(ruta_modelo_3)
 
 
-def predecir_riesgo(datos) -> list[str]:
+class Response(BaseModel):
+    prediccion: str
+    respuesta: str
+
+
+client = OpenAI(
+    api_key="Agregar_token"
+)
+
+
+def predecir_riesgo(datos) -> list[Response]:
     imc = datos.peso / (datos.estatura ** 2)
 
     entrada = pd.DataFrame(
@@ -24,8 +36,28 @@ def predecir_riesgo(datos) -> list[str]:
         columns=["IMC_calculado", "actividad_total", "tension_arterial", "edad"]
     )
 
-    pred_1 = modelo_1.predict(entrada)[0]
-    pred_2 = modelo_2.predict(entrada)[0]
-    pred_3 = modelo_3.predict(entrada)[0]
-    resultados = ["Sí" if pred == 1 else "No" for pred in [pred_1, pred_2, pred_3]]
+    modelos = [modelo_1, modelo_2, modelo_3]
+    resultados = []
+
+    for modelo in modelos:
+        prediccion = modelo.predict(entrada)[0]
+        prediccion_str = "Sí" if prediccion == 1 else "No"
+
+        # Formulamos la consulta personalizada al modelo GPT
+        prompt = f"En base a la siguiente predicción sobre el riesgo de hipertensión: '{prediccion_str}', ¿qué me podrías recomendar? Por favor responde en un párrafo breve y completo."
+
+        response = client.chat.completions.create(  # Usamos chat.completions que es la API correcta
+            model="gpt-4o",
+            messages=[
+                {"role": "system", "content": "Eres un asistente médico experto en hipertensión."},
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=300
+        )
+
+        respuesta_texto = response.choices[0].message.content.strip()
+
+        # Guardamos tanto la predicción como la respuesta
+        resultados.append(Response(prediccion=prediccion_str, respuesta=respuesta_texto))
+
     return resultados
