@@ -55,26 +55,70 @@ This is a backend project developed with FastAPI that provides an API to support
 - Receive prediction results in the response body.
 - Use /docs to explore and test the API via Swagger UI.
 
+## Architecture
+
+This project follows a layered architecture pattern:
+
+- **Domain Layer**: Core business logic and entities
+- **Application Layer**: Use cases and workflows
+- **Infrastructure Layer**: External dependencies (ML models, OpenAI)
+- **Presentation Layer**: API endpoints and serialization
+
+For detailed architecture documentation, see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+
+## Testing
+
+Run the comprehensive test suite:
+
+```bash
+# Install test dependencies
+pip install pytest pytest-asyncio httpx
+pip install pytest-cov
+
+
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov=app tests/
+```
+
+For detailed testing documentation, see [docs/TESTING.md](docs/TESTING.md).
+
 ## Project Structure
 
 ```
 backend-ml/
 ├── app/
-│ ├── api/
-│ │ └── routes.py
-│ ├── ml_models/
-│ │ ├── modelo_hipertension.pk
-│ │ ├── init.py
-│ │ ├── main.py
-│ │ ├── models.py
-│ │ ├── routes.py
-│ │ └── services.py
-│ └── pycache/
-├── test/
-│ └── test_main.htt
+│   ├── domain/                    # Business logic and entities
+│   │   ├── entities.py
+│   │   └── repositories.py
+│   ├── application/               # Use cases and workflows
+│   │   └── use_cases.py
+│   ├── infrastructure/            # External dependencies
+│   │   ├── ml_models.py
+│   │   └── openai_service.py
+│   ├── presentation/              # API layer
+│   │   ├── routes.py
+│   │   └── schemas.py
+│   ├── ml_models/                 # Trained ML models
+│   │   ├── modelo_hipertension_LOG.pkl
+│   │   ├── modelo_hipertension_RF.pkl
+│   │   └── modelo_hipertension_XGB.pkl
+│   └── main.py
+├── tests/                         # Unit tests
+│   ├── test_domain.py
+│   ├── test_application.py
+│   ├── test_infrastructure.py
+│   └── test_presentation.py
+├── docs/                          # Documentation
+│   ├── ARCHITECTURE.md
+│   ├── API.md
+│   └── TESTING.md
+├── pytest.ini
+├── requirements.txt
 ├── LICENSE
-├── README.md
-└── requirements.txt
+└── README.md
 ```
 
 ## Contribution

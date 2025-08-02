@@ -1,10 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import router
+from app.presentation.routes import router
 
 app = FastAPI(
     title="API de Predicción de Hipertensión",
-    version="1.0.0"
+    version="1.0.0",
+    description="API for hypertension risk prediction using machine learning models"
 )
 
 app.add_middleware(
@@ -14,6 +15,5 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 app.include_router(router)
