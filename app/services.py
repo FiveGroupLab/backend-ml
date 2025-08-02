@@ -58,9 +58,10 @@ async def predecir_riesgo(datos) -> list[Response]:
             imc,
             datos.actividad_total,
             datos.tension_arterial,
-            datos.edad
+            datos.peso,
+            datos.edad            
         ]],
-        columns=["IMC_calculado", "actividad_total", "tension_arterial", "edad"]
+        columns=["IMC_calculado", "actividad_total", "tension_arterial","peso_promedio", "edad"]
     )
 
     modelos = [
