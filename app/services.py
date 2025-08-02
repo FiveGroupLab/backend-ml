@@ -32,7 +32,9 @@ async def generar_respuesta(nombre_modelo: str, modelo, entrada: pd.DataFrame) -
 
     prompt = f"En base a la siguiente predicción sobre el riesgo de hipertensión: '{prediccion_str}', ¿qué me podrías recomendar? Por favor responde en un párrafo breve y completo."
 
-    response = await client.chat.completions.create(
+    # Llama a la API de OpenAI en un hilo separado
+    response = await asyncio.to_thread(
+        client.chat.completions.create,
         model="gpt-4o",
         messages=[
             {"role": "system", "content": "Eres un asistente médico experto en hipertensión."},
