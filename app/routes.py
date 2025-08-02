@@ -6,5 +6,5 @@ router = APIRouter()
 
 @router.post("/predict")
 async def predict(datos: EntradaModelo):
-    riesgo = predecir_riesgo(datos)
+    riesgo = await predecir_riesgo(datos)
     return {"riesgo_hipertension": riesgo}

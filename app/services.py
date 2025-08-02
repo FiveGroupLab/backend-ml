@@ -41,11 +41,7 @@ async def generar_respuesta(nombre_modelo: str, modelo, entrada: pd.DataFrame) -
         max_tokens=300
     )
 
-    print(response)
-
     respuesta_texto = response.choices[0].message.content.strip()
-
-    print(respuesta_texto)
 
     return Response(
         modelo=nombre_modelo,
